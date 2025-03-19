@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo с анимацией</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/img/icons8-галактика-100.png"
+    />
+  </head>
+  <body>
+    <!-- Загрузочный экран -->
+    <div id="loader">
+      <div class="planet"></div>
+      <div class="orbit"></div>
+      <div class="satellite"></div>
+    </div>
+    <!-- Основное содержимое -->
+    <div id="site-content"></div>
+    <div class="background">
+      <canvas id="stars"></canvas>
+      <div class="planet-container">
+        <div class="sun"></div>
+        <div class="giant-planet"></div>
+      </div>
+    </div>
+
+    <div class="todo-container">
+      <h1 id="header_text">Мой Todo-лист</h1>
+      <div class="input-container">
+        <input
+          type="text"
+          id="taskInput"
+          autocomplete="off"
+          placeholder="Добавить задачу..."
+        />
+        <button id="addTaskBtn">+</button>
+      </div>
+      <ul id="taskList"></ul>
+    </div>
+    <div class="cursor"></div>
+
+    <!-- Кнопка для изменения эффекта курсора -->
+    <button id="toggleAnimation">🌌 Сменить фон</button>
+
+    <!-- Кнопка для открытия меню эффектов курсора -->
+    <button id="cursorMenuBtn">⚙️ Эффекты курсора</button>
+
+    <!-- Кнопка для воспроизведения музыки -->
+
+    <!-- Кнопка для изменения языка -->
+    <button id="lng-switcher">
+      <span id="lng-icon">RU</span>
+      <!-- Флаг, который будет меняться -->
+    </button>
+
+    <!-- Меню для выбора эффекта курсора -->
+    <div id="cursorMenu" class="cursor-menu">
+      <h2 id="HeaderOfMenuEffect">Выберите эффект курсора</h2>
+      <button id="effect1">Эффект 1 (Светящийся курсор)</button>
+      <button id="effect2">Эффект 2 (Планета с орбитой)</button>
+      <button id="effect3">Эффект 3 (Космическое кольцо)</button>
+    </div>
+    <audio id="backgroundMusic" loop>
+      <source
+        src="./assets/Sound/ambient-soundscapes-001-space-atmosphere.mp3"
+        type="audio/mp3"
+      />
+      <source src="./assets/Sound/space-sound.mp3" type="audio/mp3" />
+    </audio>
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
