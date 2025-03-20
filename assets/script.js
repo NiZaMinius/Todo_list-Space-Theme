@@ -47,23 +47,56 @@ document.getElementById("toggleAnimation").addEventListener("click", () => {
 });
 
 // Добавление и удаление задач
-document.getElementById("addTaskBtn").addEventListener("click", addTask);
+// Загрузка задач из LocalStorage
+function loadTasks() {
+  const savedTasks = localStorage.getItem("tasks");
+  if (savedTasks) {
+    const tasks = JSON.parse(savedTasks);
+    tasks.forEach((taskText) => addTask(taskText, false));
+  }
+}
+
+// Сохранение задач в LocalStorage
+function saveTasks() {
+  const tasks = [];
+  document.querySelectorAll("#taskList li").forEach((li) => {
+    tasks.push(li.firstChild.textContent.trim());
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Функция добавления задачи
+function addTask(taskText = null, save = true) {
+  const taskInput = document.getElementById("taskInput");
+  const text = taskText || taskInput.value.trim();
+  if (!text) return;
+
+  const li = document.createElement("li");
+  li.innerHTML = `${text} <button class="delete-btn">x</button>`;
+
+  li.querySelector(".delete-btn").addEventListener("click", () => {
+    li.remove();
+    saveTasks(); // Обновляем LocalStorage при удалении задачи
+  });
+
+  document.getElementById("taskList").appendChild(li);
+  taskInput.value = "";
+
+  if (save) saveTasks(); // Сохраняем только новые задачи
+}
+
+// Событие для кнопки добавления
+document
+  .getElementById("addTaskBtn")
+  .addEventListener("click", () => addTask());
+
+// Событие для добавления задачи при нажатии Enter
 document.getElementById("taskInput").addEventListener("keypress", (e) => {
   if (e.key === "Enter") addTask();
 });
 
-function addTask() {
-  const taskInput = document.getElementById("taskInput");
-  if (taskInput.value.trim() === "") return;
-
-  const li = document.createElement("li");
-  li.innerHTML = `${taskInput.value} <button class="delete-btn">x</button>`;
-
-  li.querySelector(".delete-btn").addEventListener("click", () => li.remove());
-
-  document.getElementById("taskList").appendChild(li);
-  taskInput.value = "";
-}
+// Загружаем задачи при загрузке страницы
+window.addEventListener("load", loadTasks);
 
 // Курсоры
 const cursor = document.querySelector(".cursor");
